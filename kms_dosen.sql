@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Aug 30, 2020 at 01:18 PM
--- Server version: 10.3.15-MariaDB
--- PHP Version: 7.3.6
+-- Host: 127.0.0.1
+-- Generation Time: Nov 06, 2020 at 02:47 AM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,27 +24,99 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dokumen_penelitian`
+-- Table structure for table `anggota_grup`
 --
 
-CREATE TABLE `dokumen_penelitian` (
-  `id_dokumen` bigint(20) UNSIGNED NOT NULL,
-  `nama_dokumen` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kategori` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `deskripsi_dokumen` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `file` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tgl_pembuatan` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `username` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `anggota_grup` (
+  `id_anggota` int(10) NOT NULL,
+  `id_grup` int(10) NOT NULL,
+  `id_user` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `dokumen_penelitian`
+-- Table structure for table `bidang_keilmuan`
 --
 
-INSERT INTO `dokumen_penelitian` (`id_dokumen`, `nama_dokumen`, `kategori`, `deskripsi_dokumen`, `file`, `tgl_pembuatan`, `username`) VALUES
-(16, 'jurnal naon', 'Jurnal Kimia Valensi', 'wwwww', '466-849-1-SM.pdf', '2020-07-19 17:00:00', 'yunisugiarti'),
-(17, 'Jurnal Kimia', 'Jurnal Kimia Valensi', 'wwwww', '25-105-1-PB.pdf', '2020-07-19 17:00:00', 'yunisugiarti'),
-(18, 'Jurnal apa', 'Jurnal Kimia Valensi', 'wwwww', '25-105-1-PB.pdf', '2020-07-19 17:00:00', 'yunisugiarti');
+CREATE TABLE `bidang_keilmuan` (
+  `id_bk` int(10) NOT NULL,
+  `nama_bk` varchar(50) NOT NULL,
+  `deskripsi_bk` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bidang_keilmuan`
+--
+
+INSERT INTO `bidang_keilmuan` (`id_bk`, `nama_bk`, `deskripsi_bk`) VALUES
+(2, 'Teknologi Jaringan', ''),
+(3, 'Sistem Informasi', ''),
+(4, 'Rekayasa Perangkat Lunak', ''),
+(5, 'Knowledge Management System', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `daftar_penelitian`
+--
+
+CREATE TABLE `daftar_penelitian` (
+  `id_penelitian` int(10) NOT NULL,
+  `id_bk` int(10) NOT NULL,
+  `id_user` int(10) NOT NULL,
+  `judul_penelitian` varchar(50) NOT NULL,
+  `kode_penelitian` varchar(255) NOT NULL,
+  `jenis_penelitian` varchar(255) NOT NULL,
+  `bidang_penelitian` varchar(255) NOT NULL,
+  `file` varchar(255) NOT NULL,
+  `publikasi` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dokumen`
+--
+
+CREATE TABLE `dokumen` (
+  `id_dokumen` int(10) NOT NULL,
+  `id_user` int(10) NOT NULL,
+  `judul_dokumen` varchar(50) NOT NULL,
+  `file` varchar(255) NOT NULL,
+  `deskripsi_dokumen` varchar(255) NOT NULL,
+  `tgl_pembuatan` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dokumen_grup`
+--
+
+CREATE TABLE `dokumen_grup` (
+  `id_dokumen_grup` int(10) NOT NULL,
+  `id_grup` int(10) NOT NULL,
+  `id_bk` int(10) NOT NULL,
+  `judul_dokumen` varchar(50) NOT NULL,
+  `file` varchar(255) NOT NULL,
+  `deskripsi_dokumen` varchar(255) NOT NULL,
+  `tgl_pembuatan` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fakultas`
+--
+
+CREATE TABLE `fakultas` (
+  `id_fakultas` int(10) NOT NULL,
+  `nama_fakultas` varchar(50) NOT NULL,
+  `alamat_fakultas` varchar(50) NOT NULL,
+  `no_telepon` int(10) NOT NULL,
+  `email_fakultas` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -67,26 +138,47 @@ CREATE TABLE `forum_diskusi` (
 
 INSERT INTO `forum_diskusi` (`id_forum`, `judul_diskusi`, `isi_diskusi`, `user`, `tgl_pembuatan`) VALUES
 (3, 'Proposal Penelitian', 'ini contoh proposal', 'yunisugiarti', '2020-07-19 17:00:00'),
-(4, 'Prosedur', 'bagaimana prosedur penelitian? ', '', '2020-07-19 17:00:00');
+(4, 'Prosedur', 'bagaimana prosedur penelitian? ', '', '2020-07-19 17:00:00'),
+(6, 'Proposal Penelitian', 'bagaimana proposal penelitian terbaru?', '', '2020-11-04 17:00:00'),
+(7, 'Proposal Penelitian', 'halo', '', '2020-11-04 17:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kategori`
+-- Table structure for table `forum_diskusi_grup`
 --
 
-CREATE TABLE `kategori` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `nama_kategori` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `deskripsi` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `forum_diskusi_grup` (
+  `id_forum_grup` int(10) NOT NULL,
+  `id_grup` int(10) NOT NULL,
+  `topik_diskusi` varchar(50) NOT NULL,
+  `isi_diskusi` varchar(255) NOT NULL,
+  `tgl_pembuatan` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `kategori`
+-- Table structure for table `grup_riset`
 --
 
-INSERT INTO `kategori` (`id`, `nama_kategori`, `deskripsi`) VALUES
-(1, 'Jurnal Kimia Valensi', 'urnal Kimia Valensi is a biannual and peer-reviewed open access journal published by Department of Chemistry, Faculty of Science and Technology UIN Syarif Hidayatullah Jakarta.');
+CREATE TABLE `grup_riset` (
+  `id_grup` int(10) NOT NULL,
+  `id_fakultas` int(10) NOT NULL,
+  `id_prodi` int(10) NOT NULL,
+  `id_bk` int(10) NOT NULL,
+  `nama_grup` varchar(50) NOT NULL,
+  `deskripsi_grup` varchar(255) NOT NULL,
+  `tahun_grup` int(10) NOT NULL,
+  `sk_grup` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `grup_riset`
+--
+
+INSERT INTO `grup_riset` (`id_grup`, `id_fakultas`, `id_prodi`, `id_bk`, `nama_grup`, `deskripsi_grup`, `tahun_grup`, `sk_grup`) VALUES
+(1, 0, 0, 0, 'Teknologi Informasi', 'ini adalah grup riset teknologi informasi', 2010, '45230');
 
 -- --------------------------------------------------------
 
@@ -114,69 +206,60 @@ INSERT INTO `komentar_diskusi` (`id`, `id_forum`, `isi_komentar`, `username`, `t
 (7, 3, 'test', 'yunisugiarti', '2020-08-22 17:00:00'),
 (8, 3, 'Halo', 'admin', '2020-08-28 17:00:00'),
 (9, 3, 'Halo', 'admin', '2020-08-28 17:00:00'),
-(10, 3, 'Halo', 'admin', '2020-08-28 17:00:00');
+(10, 3, 'Halo', 'admin', '2020-08-28 17:00:00'),
+(11, 7, 'coba komentar', 'dosen', '2020-11-04 17:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Table structure for table `komentar_diskusi_grup`
 --
 
-CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `migrations`
---
-
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
-(2, '2014_10_12_100000_create_password_resets_table', 1),
-(3, '2020_07_08_130444_create_dokumen_penelitian_table', 2),
-(4, '2020_07_08_130518_create_kategori_table', 2),
-(5, '2020_07_08_130545_create_request_dokumen_table', 2),
-(6, '2020_07_08_130618_create_respon_request_table', 2),
-(7, '2020_07_08_130722_create_forum_diskusi_table', 2),
-(8, '2020_07_08_130750_create_komentar_diskusi_table', 2),
-(9, '2020_07_08_130816_create_pesan_table', 2);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `password_resets`
---
-
-CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pesan`
---
-
-CREATE TABLE `pesan` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `pengirim` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `penerima` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `isi_pesan` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+CREATE TABLE `komentar_diskusi_grup` (
+  `id_komentar_grup` int(10) NOT NULL,
+  `id_forum_grup` int(10) NOT NULL,
+  `isi_komentar` varchar(255) NOT NULL,
   `tgl_pembuatan` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `pesan`
+-- Table structure for table `notulensi_rapat_grup`
 --
 
-INSERT INTO `pesan` (`id`, `pengirim`, `penerima`, `isi_pesan`, `tgl_pembuatan`) VALUES
-(1, 'yunisugiarti', 'puslitpen uin jakarta', 'tidak bisa upload dokumen', '2020-08-25 17:00:00'),
-(2, 'admin', 'yunisugiarti', 'sudah bisa bu', '2020-08-29 10:13:35'),
-(3, 'yunisugiarti', 'Yuni Sugiarti', 'sudah bisa bu', '2020-08-28 17:00:00');
+CREATE TABLE `notulensi_rapat_grup` (
+  `id_notulensi_grup` int(10) NOT NULL,
+  `id_grup` int(10) NOT NULL,
+  `judul_notulensi` varchar(50) NOT NULL,
+  `isi_notulensi` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pengurus_grup`
+--
+
+CREATE TABLE `pengurus_grup` (
+  `id_pengurus` int(10) NOT NULL,
+  `id_grup` int(10) NOT NULL,
+  `id_user` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `program_studi`
+--
+
+CREATE TABLE `program_studi` (
+  `id_prodi` int(10) NOT NULL,
+  `nama_prodi` varchar(50) NOT NULL,
+  `alamat_prodi` varchar(50) NOT NULL,
+  `no_telepon` int(10) NOT NULL,
+  `email_prodi` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -186,7 +269,7 @@ INSERT INTO `pesan` (`id`, `pengirim`, `penerima`, `isi_pesan`, `tgl_pembuatan`)
 
 CREATE TABLE `request_dokumen` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `kategori` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `judul_request` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `deskripsi_request` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tgl_pembuatan` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `username` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
@@ -196,74 +279,79 @@ CREATE TABLE `request_dokumen` (
 -- Dumping data for table `request_dokumen`
 --
 
-INSERT INTO `request_dokumen` (`id`, `kategori`, `deskripsi_request`, `tgl_pembuatan`, `username`) VALUES
+INSERT INTO `request_dokumen` (`id`, `judul_request`, `deskripsi_request`, `tgl_pembuatan`, `username`) VALUES
 (2, 'Jurnal Kimia Valensi', ' wewewewewe', '2020-07-12 17:00:00', ''),
 (3, 'Jurnal Kimia Valensi', ' q', '2020-07-19 17:00:00', 'yunisugiarti');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `respon_request`
+-- Table structure for table `user`
 --
 
-CREATE TABLE `respon_request` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `topik_diskusi`
---
-
-CREATE TABLE `topik_diskusi` (
-  `id` int(11) NOT NULL,
-  `nama_topik` varchar(250) NOT NULL,
-  `tgl_pembuatan` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+CREATE TABLE `user` (
+  `id_user` int(10) NOT NULL,
+  `nama_lengkap` varchar(50) NOT NULL,
+  `jenis_kelamin` varchar(50) NOT NULL,
+  `jabatan` varchar(50) NOT NULL,
+  `program_studi` varchar(50) NOT NULL,
+  `fakultas` varchar(50) NOT NULL,
+  `alamat` varchar(50) NOT NULL,
+  `no_hp` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `level_user` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Table structure for table `users`
+-- Dumping data for table `user`
 --
 
-CREATE TABLE `users` (
-  `id_user` bigint(20) UNSIGNED NOT NULL,
-  `nama_lengkap` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jenis_kelamin` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jabatan` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `program_studi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fakultas` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alamat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `no_hp` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `level_user` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id_user`, `nama_lengkap`, `jenis_kelamin`, `jabatan`, `program_studi`, `fakultas`, `alamat`, `no_hp`, `email`, `username`, `password`, `level_user`) VALUES
-(1, 'Yuni Sugiarti', 'Perempuan', 'Dosen', 'Sistem Informasi', 'Fakultas Sains dan Teknologi', 'Sawangan, Depok', '+6282124919622', 'yuni.sugiarti@uinjkt.ac.id', 'yunisugiarti', 'yuni123', 'Dosen'),
-(3, 'A\'ang Subiyakto, M.Kom.', 'L', 'Kepala Prodi', 'Sistem Informasi', 'Fakultas Sains dan Teknologi', 'Ciputat', '08588858558', 'aang.subiyakto@uinjkt.ac.id', 'aangsubiyakto', 'aang123', 'Kaprodi'),
-(4, 'Meinarini Catur Utami', 'Wanita', 'Dosen ', 'Sistem Informasi', 'Fakultas Sains dan Teknologi (FST)', 'Sawangan', '098678654467', 'meinarini.catur@uinjkt.ac.id', 'meidosen', 'mei123', 'Dosen'),
-(5, 'puslitpen uin jakarta', 'Pria', 'admin', 'Program Studi', 'Fakultas', 'ciputat timur', '08937288472', 'admin@gmail.com', 'admin', 'admin123', 'admin');
+INSERT INTO `user` (`id_user`, `nama_lengkap`, `jenis_kelamin`, `jabatan`, `program_studi`, `fakultas`, `alamat`, `no_hp`, `email`, `username`, `password`, `level_user`) VALUES
+(1, 'admin', 'wanita', 'admin', '-', '-', 'ciputat', '09684822749', 'admin@gmail.com', 'admin', 'admin123', 'admin'),
+(2, 'wadek1', 'Pria', 'wakil dekan 1', '', '', 'Sawangan', '085893705258', 'wadek1@gmail.com', 'wadek1', 'wadek123', 'wadek'),
+(3, 'dosen', 'Wanita', 'Dosen ', '', '', 'Sawangan', '085893705258', 'dosen@gmail.com', 'dosen', 'dosen123', 'Dosen');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `dokumen_penelitian`
+-- Indexes for table `anggota_grup`
 --
-ALTER TABLE `dokumen_penelitian`
+ALTER TABLE `anggota_grup`
+  ADD PRIMARY KEY (`id_anggota`);
+
+--
+-- Indexes for table `bidang_keilmuan`
+--
+ALTER TABLE `bidang_keilmuan`
+  ADD PRIMARY KEY (`id_bk`);
+
+--
+-- Indexes for table `daftar_penelitian`
+--
+ALTER TABLE `daftar_penelitian`
+  ADD PRIMARY KEY (`id_penelitian`);
+
+--
+-- Indexes for table `dokumen`
+--
+ALTER TABLE `dokumen`
   ADD PRIMARY KEY (`id_dokumen`);
+
+--
+-- Indexes for table `dokumen_grup`
+--
+ALTER TABLE `dokumen_grup`
+  ADD PRIMARY KEY (`id_dokumen_grup`);
+
+--
+-- Indexes for table `fakultas`
+--
+ALTER TABLE `fakultas`
+  ADD PRIMARY KEY (`id_fakultas`);
 
 --
 -- Indexes for table `forum_diskusi`
@@ -272,10 +360,16 @@ ALTER TABLE `forum_diskusi`
   ADD PRIMARY KEY (`id_forum`);
 
 --
--- Indexes for table `kategori`
+-- Indexes for table `forum_diskusi_grup`
 --
-ALTER TABLE `kategori`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `forum_diskusi_grup`
+  ADD PRIMARY KEY (`id_forum_grup`);
+
+--
+-- Indexes for table `grup_riset`
+--
+ALTER TABLE `grup_riset`
+  ADD PRIMARY KEY (`id_grup`);
 
 --
 -- Indexes for table `komentar_diskusi`
@@ -284,22 +378,22 @@ ALTER TABLE `komentar_diskusi`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `migrations`
+-- Indexes for table `komentar_diskusi_grup`
 --
-ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `komentar_diskusi_grup`
+  ADD PRIMARY KEY (`id_komentar_grup`);
 
 --
--- Indexes for table `password_resets`
+-- Indexes for table `notulensi_rapat_grup`
 --
-ALTER TABLE `password_resets`
-  ADD KEY `password_resets_email_index` (`email`);
+ALTER TABLE `notulensi_rapat_grup`
+  ADD PRIMARY KEY (`id_notulensi_grup`);
 
 --
--- Indexes for table `pesan`
+-- Indexes for table `program_studi`
 --
-ALTER TABLE `pesan`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `program_studi`
+  ADD PRIMARY KEY (`id_prodi`);
 
 --
 -- Indexes for table `request_dokumen`
@@ -308,64 +402,92 @@ ALTER TABLE `request_dokumen`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `respon_request`
+-- Indexes for table `user`
 --
-ALTER TABLE `respon_request`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `topik_diskusi`
---
-ALTER TABLE `topik_diskusi`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id_user`),
-  ADD UNIQUE KEY `users_email_unique` (`email`),
-  ADD UNIQUE KEY `users_username_unique` (`username`);
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id_user`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `dokumen_penelitian`
+-- AUTO_INCREMENT for table `anggota_grup`
 --
-ALTER TABLE `dokumen_penelitian`
-  MODIFY `id_dokumen` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+ALTER TABLE `anggota_grup`
+  MODIFY `id_anggota` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `bidang_keilmuan`
+--
+ALTER TABLE `bidang_keilmuan`
+  MODIFY `id_bk` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `daftar_penelitian`
+--
+ALTER TABLE `daftar_penelitian`
+  MODIFY `id_penelitian` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `dokumen`
+--
+ALTER TABLE `dokumen`
+  MODIFY `id_dokumen` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `dokumen_grup`
+--
+ALTER TABLE `dokumen_grup`
+  MODIFY `id_dokumen_grup` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fakultas`
+--
+ALTER TABLE `fakultas`
+  MODIFY `id_fakultas` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `forum_diskusi`
 --
 ALTER TABLE `forum_diskusi`
-  MODIFY `id_forum` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_forum` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `kategori`
+-- AUTO_INCREMENT for table `forum_diskusi_grup`
 --
-ALTER TABLE `kategori`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `forum_diskusi_grup`
+  MODIFY `id_forum_grup` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `grup_riset`
+--
+ALTER TABLE `grup_riset`
+  MODIFY `id_grup` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `komentar_diskusi`
 --
 ALTER TABLE `komentar_diskusi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `migrations`
+-- AUTO_INCREMENT for table `komentar_diskusi_grup`
 --
-ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+ALTER TABLE `komentar_diskusi_grup`
+  MODIFY `id_komentar_grup` int(10) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `pesan`
+-- AUTO_INCREMENT for table `notulensi_rapat_grup`
 --
-ALTER TABLE `pesan`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `notulensi_rapat_grup`
+  MODIFY `id_notulensi_grup` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `program_studi`
+--
+ALTER TABLE `program_studi`
+  MODIFY `id_prodi` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `request_dokumen`
@@ -374,22 +496,10 @@ ALTER TABLE `request_dokumen`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `respon_request`
+-- AUTO_INCREMENT for table `user`
 --
-ALTER TABLE `respon_request`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `topik_diskusi`
---
-ALTER TABLE `topik_diskusi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id_user` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `user`
+  MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
