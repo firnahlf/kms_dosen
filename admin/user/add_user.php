@@ -19,7 +19,7 @@
   <!-- Custom fonts for this template-->
   <link href="../../assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Custom styles for this template-->
   <link href="../../assets/css/sb-admin-2.min.css" rel="stylesheet">
 
@@ -62,7 +62,7 @@
                 <div class="modal-body" >
 
 
-                  <form enctype="multipart/form-data" action="proses_edit_user.php" method="post" >
+                  <form enctype="multipart/form-data" action="proses_add_user.php" method="post" >
                     <div class="form-group">
                       <label for="recipient-name" class="col-form-label">Nama Lengkap</label>
                       <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap">
@@ -83,85 +83,40 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="recipient-name" class="col-form-label">Program Studi</label><br>
-                       <select class="form-control" name="program_studi" id="program_studi" required>
-                        <option>Program Studi</option>
-                        <option>Pendidikan Agama Islam</option>
-                        <option>Pendidikan Bahasa Arab  </option>
-                        <option>Pendidikan Bahasa dan Sastra Indonesia  </option>
-                        <option>Pendidikan Bahasa Inggris </option>
-                        <option>Pendidikan Ilmu Pengetahuan Sosial  </option>
-                        <option>Pendidikan Matematika </option>
-                        <option>Pendidikan Biologi  </option>
-                        <option>Pendidikan Kimia  </option>
-                        <option>Pendidikan Fisika </option>
-                        <option>Manajemen Pendidikan  </option>
-                        <option>Pendidikan Guru MI (PGMI) </option>
-                        <option>Pendidikan Guru MI (PGMI) </option>
-                        <option>Bahasa dan Sastra Arab  </option>
-                        <option>Sejarah dan Peradaban Islam </option>
-                        <option>Tarjamah (Bahasa Arab)  </option>
-                        <option>Sastra Inggris  </option>
-                        <option>Ilmu Perpustakaan </option>
-                        <option>Studi Agama-Agama </option>
-                        <option>Aqidah dan Filsafat Islam </option>
-                        <option>Ilmu Al-Qur’an dan Tafsir </option>
-                        <option>Ilmu Hadis  </option>
-                        <option>Ilmu Tasawuf  </option>
-                        <option>Perbandingan Madzhab  </option>
-                        <option>Hukum Keluarga (Akhwal Syakhshiyah) </option>
-                        <option>Ilmu Hukum  </option>
-                        <option>Hukum Ekonomi Syariah (Muamalat)  </option>
-                        <option>Hukum Pidana Islam (Jinayah)  </option>
-                        <option>Hukum Tata Negara (Siyasah) </option>
-                        <option>Komunikasi dan Penyiaran Islam  </option>
-                        <option>Bimbingan Penyuluhan Islam  </option>
-                        <option>Manajemen Dakwah  </option>
-                        <option>Pengembangan Masyarakat Islam </option>
-                        <option>Kesejahteraan Sosial  </option>
-                        <option>Jurnalistik</option>
-                        <option>Dirasat Islamiyah </option>
-                        <option>Psikologi </option>
-                        <option>Manajemen</option>
-                        <option>Akuntansi</option>
-                        <option>Ekonomi Pembangunan </option>
-                        <option>Ekonomi Syariah </option>
-                        <option>Perbankan Syariah </option>
-                        <option>Agribisnis  </option>
-                        <option>Teknik Informatika  </option>
-                        <option>Sistem Informasi  </option>
-                        <option>Matematika  </option>
-                        <option>Biologi</option>
-                        <option>Kimia </option>
-                        <option>Fisika  </option>
-                        <option>Teknik Pertambangan </option>
-                        <option>Kesehatan Masyarakat  </option>
-                        <option>Farmasi </option>
-                        <option>Ilmu Keperawatan  </option>
-                        <option>Sosiologis</option>
-                        <option>Ilmu Politik  </option>
-                        <option>Hubungan Internasional  </option>
-                        <option>Kedokteran  </option>
-                    </select>
-                    </div>
+                              <label for="id_prodi" class="col-sm-2 control-label">Program Studi</label>
+                              <div class="col-sm-10">
+                             <select name="id_prodi" id="id_prodi" onchange="changeValue(this.value)" >
+                                <option value=0></option>
+                                  <?php
+                                  include "../include/config.php";
+                                  $result = mysqli_query($koneksi, "SELECT * FROM program_studi");
+
+                                  while ($row = mysqli_fetch_array($result)) {
+                                    echo '<option value="' . $row['id_prodi'] . '">' . $row['nama_prodi'] . '</option>';
+
+                                    }
+                                    ?>
+                                  </select>
+                                </div>
+                              </div>
+
                     <div class="form-group">
-                      <label for="recipient-name" class="col-form-label">Fakultas</label><br>
-                       <select class="form-control" name="fakultas" id="Fakultas" required>
-                        <option>Fakultas</option>
-                        <option>Fakultas Ilmu Tarbiyah dan Keguruan (FITK)</option>
-                        <option>Fakultas Adab dan Humaniora (FAH)</option>
-                        <option>Fakultas Ushuluddin (FU)</option>
-                        <option>Fakultas Syariah dan Hukum (FSH) </option>
-                        <option>Fakultas Dakwah dan Ilmu Komunikasi (FDIK) </option>
-                        <option>Fakultas Dirasat Islamiyah (FDI)</option>
-                        <option>Fakultas Psikologi (FPsi) </option>
-                        <option>Fakultas Ekonomi dan Bisnis (FEB)</option>
-                        <option>Fakultas Sains dan Teknologi (FST) </option>
-                        <option>Fakultas Ilmu Kesehatan (FIKES)</option>
-                        <option>Fakultas Ilmu Sosial dan Ilmu Politik (FISIP)</option>
-                        <option>Fakultas Kedokteran (FK)</option>
-                      </select>
-                    </div>
+                              <label for="id_fakultas" class="col-sm-2 control-label">Fakultas</label>
+                              <div class="col-sm-10">
+                             <select name="id_fakultas" id="id_fakultas" onchange="changeValue(this.value)" >
+                                <option value=0></option>
+                                  <?php
+                                  include "../include/config.php";
+                                  $result = mysqli_query($koneksi, "SELECT * FROM fakultas");
+
+                                  while ($row = mysqli_fetch_array($result)) {
+                                    echo '<option value="' . $row['id_fakultas'] . '">' . $row['nama_fakultas'] . '</option>';
+
+                                    }
+                                    ?>
+                                  </select>
+                                </div>
+                              </div>
                     
                      <div class="form-group">
                       <label for="recipient-name" class="col-form-label">Alamat</label>
@@ -193,7 +148,7 @@
                         <option>Level User</option>
                         <option>Dosen</option>
                         <option>admin</option>
-                        <option>Kaprodi</option>
+                        <option>wadek</option>
                       </select>
                     </div>
                      

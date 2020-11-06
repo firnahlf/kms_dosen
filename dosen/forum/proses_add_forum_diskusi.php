@@ -2,7 +2,7 @@
 include "../../include/config.php";
 
 $username=$_SESSION['username'];
-$sql=mysqli_query($koneksi, "SELECT * FROM users WHERE username = '$username' ") or die(mysqli_error());
+$sql=mysqli_query($koneksi, "SELECT * FROM user WHERE username = '$username' ") or die(mysqli_error());
 
 $row = mysqli_fetch_array($sql);
   

@@ -33,28 +33,35 @@
           <i class="fas fa-fw fa-folder"></i>
           <span>Dokumen</span></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../penelitian/penelitian.php">
+          <i class="fas fa-fw fa-clone"></i>
+          <span>Daftar Penelitian</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../notulensi/notulensi.php">
+          <i class="fas fa-fw fa-pencil-square-o"></i>
+          <span>Notulensi Rapat</span></a>
+      </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
+     
       <!-- Divider -->
-      <hr class="sidebar-divider">
-
+      
       <!-- Heading -->
-      <div class="sidebar-heading">
-        
-      </div>
+     
 
       <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link" href="../grup/grup.php">
+          <i class="fas fa-fw fa-group"></i>
+          <span>Grup Riset</span></a>
+      </li>
+
       <li class="nav-item">
         <a class="nav-link" href="../forum/forum_diskusi.php">
           <i class="fas fa-fw fa-bullhorn"></i>
           <span>Forum Diskusi</span></a>
-      </li>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="../pesan/pesan.php">
-          <i class="fas fa-fw fa-comments"></i>
-          <span>Pesan</span></a>
       </li>
 
       <!-- Nav Item - Tables -->

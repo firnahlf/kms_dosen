@@ -8,7 +8,7 @@ if (mysqli_connect_errno()) {
     echo mysqli_connect_error();
 }
 function base_url($url = null){
-    $base_url = "http://localhost/skripsyit";
+    $base_url = "http://localhost/kms_dosen";
     if($url != null){
         return $base_url."/".$url;
     } else{

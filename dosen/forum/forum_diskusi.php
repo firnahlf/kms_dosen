@@ -51,7 +51,7 @@ $uname=$_SESSION['username'];
                     <span class="text">Tambah Diskusi</span>
                   </a>
                   <br>
-                  <br>
+                  
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
@@ -65,8 +65,6 @@ $uname=$_SESSION['username'];
                   <h4><?php echo $tampil['judul_diskusi'] ; ?></<h4></h4>
                   <p class="mb-0" style="font-size: 10px;"><?php echo $tampil['tgl_pembuatan'] ; ?> <?php echo $tampil['user'] ; ?></p>
                   <p style="font-size: 20px;"><?php echo $tampil['isi_diskusi'] ; ?></p>
-                  <br>
-                  
                   <a class="btn btn-primary btn-sm" href="balas_diskusi.php?id_forum=<?php echo $tampil['id_forum']; ?>"><i class="fa fa-edit"> Balas</i></a>
                    
                   <hr>

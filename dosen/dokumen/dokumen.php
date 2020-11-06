@@ -68,7 +68,7 @@
                   <tbody>
                     <?php
                       include "../../include/config.php";
-                      $baca = mysqli_query($koneksi, "SELECT * FROM dokumen_penelitian");
+                      $baca = mysqli_query($koneksi, "SELECT * FROM dokumen");
                       while( $tampil = mysqli_fetch_array($baca))
                       {
                      ?>

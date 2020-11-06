@@ -1,15 +1,18 @@
 <?php
+session_start();
 include "../../include/config.php";
 
-session_start();
-$username=$_SESSION['username'];
-$sql=mysqli_query($koneksi, "SELECT * FROM users WHERE username = '$username' ") or die(mysqli_error());
+if (!isset($_SESSION['id']) ||(trim ($_SESSION['id']) == '')) {
+  header('location:dokumen.php');
+  exit();
+}
+$sql=mysqli_query($koneksi,"select * from user where id_user='".$_SESSION['id']."'");
 
 $row = mysqli_fetch_array($sql);
   
 if (mysqli_num_rows($sql) > 0)
 {
-  $_SESSION['username'] = $row['username'];
+  $_SESSION['id'] = $row['username'];
  
 }
 
@@ -23,9 +26,8 @@ if (isset($_POST['submit'])) {
     # code...
 
 //tampung data
-
-$nama_dokumen = $_POST['nama_dokumen'];
-$kategori = $_POST['kategori'];
+$id_user = $_SESSION['id'];
+$judul_dokumen = $_POST['judul_dokumen'];
 $deskripsi_dokumen = $_POST['deskripsi_dokumen'];
 $lokasi_file = $_FILES['file']['tmp_name'];
 $file   = $_FILES['file']['name'];
@@ -33,13 +35,13 @@ $tmp = $_FILES ['file']['tmp_name'];
 $filebaru = date('dmYHis').$file;
 $path = "file_request/".$filebaru;
 $tgl_pembuatan = date("Y-m-d");
-$username = $_SESSION['username'];
+
 
     if(move_uploaded_file($tmp, $path)){
 
   
-    $query = mysqli_query($koneksi, "INSERT INTO dokumen_penelitian (nama_dokumen, kategori, deskripsi_dokumen,  file,  tgl_pembuatan, username)
-    VALUES('$nama_dokumen', '$kategori', '$deskripsi_dokumen', '$file', '$tgl_pembuatan','$username')");
+    $query = mysqli_query($koneksi, "INSERT INTO dokumen ( id_user, judul_dokumen, deskripsi_dokumen,  file,  tgl_pembuatan,)
+    VALUES('$id_user','$judul_dokumen', '$deskripsi_dokumen', '$file', '$tgl_pembuatan')");
 
     if($query)
     {

@@ -48,22 +48,8 @@
 
                   <form enctype="multipart/form-data" action="proses_add_dokumen.php" method="post" >
                     <div class="form-group">
-                      <label for="recipient-name" class="col-form-label">Nama Dokumen</label>
-                      <input type="text" class="form-control" id="nama_dokumen" name="nama_dokumen">
-                    </div>
-                    
-                    <div class="form-group">
-                      <label for="recipient-name" class="col-form-label">Kategori</label><br>
-                       <select class="form-control" name="kategori" id="kategori" required>
-                        <option value=""> --> Pilih Kategori <-- </option>
-                       <?php
-                       include "../../include/config.php";
-                        $sql_kategori = mysqli_query($koneksi, "SELECT * FROM kategori ORDER BY nama_kategori ASC") or die(mysqli_error($koneksi));
-                        while($data_kategori = mysqli_fetch_array($sql_kategori)){
-                            echo '<option value="'.$data_kategori['nama_kategori'].'"> '.$data_kategori['nama_kategori'].' </option>';
-                        }
-                        ?>
-                    </select>
+                      <label for="recipient-name" class="col-form-label">Judul Dokumen</label>
+                      <input type="text" class="form-control" id="judul_dokumen" name="judul_dokumen">
                     </div>
                    
                      <div class="form-group">

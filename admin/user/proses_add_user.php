@@ -33,7 +33,7 @@ if($username =="" or $password =="")
 else {
 
   
-    $query = mysqli_query($koneksi, "INSERT INTO users (nama_lengkap, jenis_kelamin, jabatan,  program_studi,  fakultas, alamat,no_hp,email,username,password,level_user)
+    $query = mysqli_query($koneksi, "INSERT INTO user (nama_lengkap, jenis_kelamin, jabatan,  program_studi,  fakultas, alamat,no_hp,email,username,password,level_user)
     VALUES('$nama_lengkap', '$jenis_kelamin', '$jabatan', '$program_studi', '$fakultas','$alamat','$no_hp','$email','$username','$password','$level_user')");
 
     if($query)
